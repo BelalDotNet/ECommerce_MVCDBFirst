@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ECommerce.Models.MobileBrand>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h1>@Html.ActionLink("Add New Brand", "Create", "Mobilebrand")</h1>
+    </div>
+    <div>
+        <img src="~/Photos/MobileBrand.jpg"  width="100%"  height="350" />
+    </div>
+    
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandName)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandName)
+                </td>
+                <td>
+                   
+                    @Html.ActionLink("Details", "Details", new { id = item.BrandID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BrandID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

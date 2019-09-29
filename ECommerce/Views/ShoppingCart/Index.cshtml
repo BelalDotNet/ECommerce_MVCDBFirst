@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ECommerce.Models.ShoppingCart>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>Shopping Cart Information</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CartStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CartStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.ProductName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CartId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CartId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CartId })
+        </td>
+    </tr>
+}
+
+</table>

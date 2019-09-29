@@ -1,0 +1,55 @@
+﻿@model PagedList.IPagedList<ECommerce.Models.Product>
+
+
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<h1 class="text-center">
+    Mobile Shop
+</h1>
+
+
+<img src="~/Photos/AboutPic.jpg" width="100%" height="150" />
+
+<br />
+
+
+@using (Html.BeginForm())
+{
+    <p>Find By Name : </p> @Html.TextBox("searchString"); <input type="submit" value="search" />
+}
+
+ <br />
+
+ 
+     @foreach (var item in Model)
+     {
+         <div class="row col-lg-3" style="float:left; margin:10px;">
+             <div class="img-responsive">
+                 <img src="@Url.Content(item.ProductImage)" width="250" height="250" multiple alt="myimage" />
+             </div>
+             <div>
+                 <strong>Product Name : </strong> @Html.DisplayFor(modelItem => item.ProductName)<br />
+                 @Html.DisplayNameFor(model => item.Price)
+                 @Html.DisplayFor(modelItem => item.Price)
+
+             </div>
+             <div>
+                 @Html.ActionLink("Details", "Details", new { id = item.ProductID })&nbsp;
+                 <input type="button" value="Add To Cart" class="btn btn-danger" />
+             </div>
+         </div>
+
+     }
+ 
+        
+         <div style="clear:both;">
+             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+             @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }));
+         </div>
+

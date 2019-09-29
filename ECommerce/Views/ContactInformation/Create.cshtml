@@ -1,0 +1,87 @@
+﻿@model ECommerce.Models.ContactInformation
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+
+
+
+
+<div id="loading" style="display:none; width:300px; height:60px;" class="alert alert-danger">
+    Please wait For Response......
+    <img src="~/Photos/Ajax.gif" width="40" height="40" />
+</div>
+
+
+<div id="messageForm">
+    @using (Ajax.BeginForm(new AjaxOptions
+    {
+        HttpMethod = "Post",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "loading",
+        UpdateTargetId = "messageForm",
+        LoadingElementDuration = 5000
+
+
+
+    }))
+
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+
+    }
+
+</div>
+
+

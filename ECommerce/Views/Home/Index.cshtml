@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <h2 class="text-center"><strong>Mobile Shop</strong></h2>
+    <img src="~/Photos/AboutPic.jpg" width="100%" height="150" />
+    <h2>@Html.ActionLink("Buy Now", "Index", "Product")&raquo;</h2>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/Photos/105.jpg" width="350" height="300" />
+        <h2>About Us</h2>
+        <p>
+            OnlineMobile.com.bd is one of the largest mobile phone information based web portal in Bangladesh.
+            Here you will know Nokia/Microsoft mobile price in Bangladesh. 
+        </p>
+        <h2 class="btn btn-info"> @Html.ActionLink("See More", "Index", "Product")&raquo;</h2>
+      
+    </div>
+    <div class="col-md-4">
+        <img src="~/Photos/201.jpg" width="300" height="300" />
+        <h2>Best Shop</h2>
+        <p>
+            OnlineMobile.com.bd is one of the largest mobile phone information based web portal in Bangladesh.
+            Here you will know Nokia/Microsoft mobile price in Bangladesh.
+        </p>
+        <h2 class="btn btn-info"> @Html.ActionLink("See More", "Index", "Product")&raquo;</h2>
+    </div>
+    <div class="col-md-4">
+        <img src="~/Photos/202.png" width="300" height="300" />
+        <h2>Your Trusted Partner</h2>
+        <p>
+            OnlineMobile.com.bd is one of the largest mobile phone information based web portal in Bangladesh.
+            Here you will know Nokia/Microsoft mobile price in Bangladesh.
+        </p>
+        <h2 class="btn btn-info"> @Html.ActionLink("See More", "Index", "Product")&raquo;</h2>
+    </div>
+</div>

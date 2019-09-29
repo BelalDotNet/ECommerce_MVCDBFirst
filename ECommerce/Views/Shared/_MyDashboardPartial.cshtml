@@ -1,0 +1,6 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Dashboard", "Index", "Dashbaord")</li>
+    </ul>
+}

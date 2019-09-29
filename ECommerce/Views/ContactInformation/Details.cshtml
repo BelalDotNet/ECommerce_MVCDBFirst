@@ -1,0 +1,63 @@
+﻿@model ECommerce.Models.ContactInformation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Contact Details</h4>
+        <div class="container">
+            <img src="~/Photos/ContactUs.Jpg" alt="Contact Photo" width="100%" height="150" />
+        </div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmailAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MobileNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Comment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comment)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+      
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

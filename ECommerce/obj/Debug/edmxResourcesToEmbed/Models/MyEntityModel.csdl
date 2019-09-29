@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ECommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ContactInformation">
+    <Key>
+      <PropertyRef Name="ContactID" />
+    </Key>
+    <Property Name="ContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="ECommerceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ContactInformations" EntityType="Self.ContactInformation" />
+    <EntitySet Name="MobileBrands" EntityType="ECommerceModel.MobileBrand" />
+    <EntitySet Name="Products" EntityType="ECommerceModel.Product" />
+    <AssociationSet Name="FK__Products__BrandI__4BAC3F29" Association="ECommerceModel.FK__Products__BrandI__4BAC3F29">
+      <End Role="MobileBrand" EntitySet="MobileBrands" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="ECommerceModel.Order" />
+    <EntitySet Name="Payments" EntityType="ECommerceModel.Payment" />
+    <EntitySet Name="ShoppingCarts" EntityType="ECommerceModel.ShoppingCart" />
+    <AssociationSet Name="FK__Orders__ProductI__5CD6CB2B" Association="ECommerceModel.FK__Orders__ProductI__5CD6CB2B">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__CartID__628FA481" Association="ECommerceModel.FK__Payment__CartID__628FA481">
+      <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ShoppingC__Produ__5FB337D6" Association="ECommerceModel.FK__ShoppingC__Produ__5FB337D6">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="MobileBrand">
+    <Key>
+      <PropertyRef Name="BrandID" />
+    </Key>
+    <Property Name="BrandID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Products" Relationship="ECommerceModel.FK__Products__BrandI__4BAC3F29" FromRole="MobileBrand" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BrandID" Type="Int32" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FirstRelease" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="ProductDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="MobileBrand" Relationship="ECommerceModel.FK__Products__BrandI__4BAC3F29" FromRole="Product" ToRole="MobileBrand" />
+    <NavigationProperty Name="Orders" Relationship="ECommerceModel.FK__Orders__ProductI__5CD6CB2B" FromRole="Product" ToRole="Order" />
+    <NavigationProperty Name="ShoppingCarts" Relationship="ECommerceModel.FK__ShoppingC__Produ__5FB337D6" FromRole="Product" ToRole="ShoppingCart" />
+  </EntityType>
+  <Association Name="FK__Products__BrandI__4BAC3F29">
+    <End Type="ECommerceModel.MobileBrand" Role="MobileBrand" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ECommerceModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MobileBrand">
+        <PropertyRef Name="BrandID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="BrandID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Product" Relationship="ECommerceModel.FK__Orders__ProductI__5CD6CB2B" FromRole="Order" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CartID" Type="Int32" Nullable="false" />
+    <Property Name="PayMentType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreditAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="DebitAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PaymentDateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ShoppingCart" Relationship="ECommerceModel.FK__Payment__CartID__628FA481" FromRole="Payment" ToRole="ShoppingCart" />
+  </EntityType>
+  <EntityType Name="ShoppingCart">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="CartStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AddedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Payments" Relationship="ECommerceModel.FK__Payment__CartID__628FA481" FromRole="ShoppingCart" ToRole="Payment" />
+    <NavigationProperty Name="Product" Relationship="ECommerceModel.FK__ShoppingC__Produ__5FB337D6" FromRole="ShoppingCart" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK__Orders__ProductI__5CD6CB2B">
+    <End Type="ECommerceModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="ECommerceModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__CartID__628FA481">
+    <End Type="ECommerceModel.ShoppingCart" Role="ShoppingCart" Multiplicity="1" />
+    <End Type="ECommerceModel.Payment" Role="Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShoppingCart">
+        <PropertyRef Name="CartId" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="CartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ShoppingC__Produ__5FB337D6">
+    <End Type="ECommerceModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="ECommerceModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="ShoppingCart">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

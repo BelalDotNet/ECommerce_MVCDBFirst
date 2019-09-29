@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ECommerce.Models.ContactInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2 class="nav navbar navbar-default text-center">Contact Information Record</h2>
+<div class="container">
+    <img src="~/Photos/ContactUs.Jpg" alt="Contact Photo" width="100%" height="150" />
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.ContactID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ContactID })
+            </td>
+        </tr>
+    }
+
+</table>
